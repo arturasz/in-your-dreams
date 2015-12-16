@@ -8,6 +8,7 @@
   "dependencies": {
     "react-native": "^0.14.2",
     "react-native-button": "^1.2.1",
+    "react-native-google-signin": "^0.2.3",
     "react-native-navbar": "^0.8.0",
     "react-native-redux-router": "^1.0.0",
     "react-native-tabs": "^0.0.6",
