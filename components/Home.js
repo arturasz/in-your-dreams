@@ -5,22 +5,58 @@ var {View, Text, StyleSheet, Image} = React;
 var Button = require('react-native-button');
 
 class Home extends React.Component {
-  render(){
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    fetch('https://api.github.com/users/arturasz', {
+      //method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify({
+      //   firstParam: 'yourValue',
+      //   secondParam: 'yourOtherValue',
+      // })
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState(responseJson);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  };
+  markAsBoring() {
+    console.log('Boring')
+  }
+
+  markAsAwesome() {
+    console.log('Awesome')
+  }
+  render() {
     let Actions = this.props.routes;
+    let card = {};
+    console.log(this)
+
     return (
       <View style={styles.container}>
-        <Text>Home</Text>
+        <Text>{this.state.name}</Text>
         <Image
            style={styles.logo}
            source={{uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'}}
                  />
         <View style={styles.buttonContainer}>
-          <Button onPress={Actions.pop}>Boring</Button>
-          <Button onPress={Actions.pop}>Amazing</Button>
+          <Button onPress={this.markAsBoring}>Boring</Button>
+          <Button onPress={this.markAsAwesome}>Amazing</Button>
         </View>
       </View>
     );
-  }
+  };
+
 }
 
 var styles = StyleSheet.create({
