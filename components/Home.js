@@ -12,15 +12,10 @@ class Home extends React.Component {
 
   componentDidMount() {
     fetch('https://in-your-dreams.herokuapp.com/api/ideas', {
-      //method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      // body: JSON.stringify({
-      //   firstParam: 'yourValue',
-      //   secondParam: 'yourOtherValue',
-      // })
     })
       .then((response) => response.json())
       .then((responseJson) => {
@@ -35,13 +30,36 @@ class Home extends React.Component {
         console.warn(error);
       });
   };
-  markAsBoring() {
-    this.markAsAwesome();
-    //TODO: post boring
+
+  vote(id, status) {
+    fetch('https://in-your-dreams.herokuapp.com/api/ideas', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ideaId: id,
+        date: Date.now().toString(),
+        userId: 'TODO', //TODO: userId
+        vote: status
+      })
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.debug('Received', responseJson)
+        this.redirectOrShowNext();
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }
+  markAsBoring(id) {
+    this.vote(id, 'downVote')
     console.log('Boring')
   }
 
-  markAsAwesome() {
+  redirectOrShowNext() {
     if (this.state.dreams.length === 1) {
       this.props.routes.create();
     }
@@ -54,8 +72,11 @@ class Home extends React.Component {
         return state;
       });
     }
+  }
 
-    //TODO: post awesome
+  markAsAwesome(id) {
+    console.log(id);
+    this.vote(id, 'upVote')
     console.log('Awesome')
   }
 
@@ -82,8 +103,8 @@ class Home extends React.Component {
            />
         <Text>{this.state.dreams[0].description}</Text>
         <View style={styles.buttonContainer}>
-          <Button onPress={() => this.markAsBoring()}>Boring</Button>
-          <Button onPress={() => this.markAsAwesome()}>Amazing</Button>
+          <Button onPress={() => this.markAsBoring(this.state.dreams[0].id)}>Boring</Button>
+          <Button onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>Amazing</Button>
         </View>
       </View>
     );

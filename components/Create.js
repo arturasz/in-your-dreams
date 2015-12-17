@@ -35,7 +35,7 @@ class Create extends React.Component {
           this.props.routes.home();
         })
         .catch((error) => {
-          console.log(arguments);
+          console.warn('error', arguments);
         });
       console.log('Create')
     }
