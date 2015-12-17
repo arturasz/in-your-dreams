@@ -3,15 +3,15 @@
 var React = require('react-native');
 var {View, Text, StyleSheet, Image} = React;
 var Button = require('react-native-button');
+var {Actions} = require('react-native-redux-router');
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {
-    fetch('https://api.github.com/users/arturasz', {
+    fetch('https://in-your-dreams.herokuapp.com/api/ideas', {
       //method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -24,37 +24,82 @@ class Home extends React.Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState(responseJson);
+        console.debug('Received', responseJson)
+        this.setState({dreams: responseJson});
       })
       .catch((error) => {
         console.warn(error);
       });
   };
   markAsBoring() {
+    this.markAsAwesome();
+    //TODO: post boring
     console.log('Boring')
   }
 
   markAsAwesome() {
+    if (this.state.dreams.length === 1) {
+      this.props.routes.register();
+    }
+    else {
+      this.setState(function(state) {
+        console.log(this.state.dreams)
+        state.dreams.shift();
+        console.log(this.state.dreams)
+        console.log(this.state.dreams.length)
+        return state;
+      });
+    }
+
+    //TODO: post awesome
     console.log('Awesome')
   }
-  render() {
-    let Actions = this.props.routes;
-    let card = {};
-    console.log(this)
 
+  renderLoading() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.name}</Text>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  redirectToScoreBoard() {
+    console.log(this.props.routes)
+    this.props.routes.register();
+  }
+
+  renderFirst() {
+    return (
+      <View style={styles.container}>
+        <Text>{this.state.dreams[0].title}</Text>
         <Image
            style={styles.logo}
            source={{uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'}}
-                 />
+           />
+        <Text>{this.state.dreams[0].description}</Text>
         <View style={styles.buttonContainer}>
-          <Button onPress={this.markAsBoring}>Boring</Button>
-          <Button onPress={this.markAsAwesome}>Amazing</Button>
+          <Button onPress={() => this.markAsBoring()}>Boring</Button>
+          <Button onPress={() => this.markAsAwesome()}>Amazing</Button>
         </View>
       </View>
     );
+  }
+
+  render() {
+    let card = {};
+
+    if (!this.state) {
+      return this.renderLoading();
+    }
+
+    console.log(this.state.dreams);
+    console.log(this.state.dreams.length);
+    if (!this.state.dreams.length) {
+      return this.redirectToScoreBoard();
+    }
+
+    return this.renderFirst();
+
   };
 
 }
