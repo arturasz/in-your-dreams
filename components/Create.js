@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var {TextInput, View, Text, StyleSheet, Image} = React;
+var {TextInput, TouchableHighlight, View, Text, StyleSheet, Image, CameraRoll} = React;
 var Button = require('react-native-button');
 var {Actions} = require('react-native-redux-router');
 
@@ -16,14 +16,34 @@ class Create extends React.Component {
     console.log('Create')
   }
 
+  getPhotos() {
+    console.log('get')
+    CameraRoll.getPhotos({first: 25}, this.storeImages, this.logImageError);
+  }
+
+  storeImages(data) {
+    const assets = data.edges;
+    const images = assets.map((asset) => asset.node.image);
+    this.setState({
+      images: images,
+    });
+  }
+
+  logImageError(err) {
+    console.log(err);
+  }
 
   renderFirst() {
     return (
       <View style={styles.container}>
-        <Image
-           style={styles.logo}
-           source={{uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'}}
-           />
+        <TouchableHighlight
+           style={styles.photoContainer}
+           onPress={() => this.getPhotos()}>
+          <Image
+             style={styles.photo}
+             source={{uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'}}
+             />
+        </TouchableHighlight>
         <TextInput
            style={styles.title}
            onChangeText={(text) => this.setState({text})}
@@ -58,10 +78,19 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
   },
+  photoContainer: {
+    flex: 3
+  },
+  photo: {
+    flex: 1,
+    height: null,
+    width: null
+  },
   logo: {
     borderWidth: 1,
     borderColor: 'pink',
     flex: 5,
+    alignItems: 'stretch'
   },
   title: {
     height: 40,
