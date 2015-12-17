@@ -10,12 +10,33 @@ var {NavBar, NavBarModal} = require('./components/NavBar');
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 
-import { createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux/native';
+var { NativeAppEventEmitter } = require('react-native');
+var GoogleSignin = require('react-native-google-signin');
+var thunk = require('redux-thunk');
 
-let store = createStore(combineReducers({routerReducer}));
+GoogleSignin.configure(
+  '772751197366-soir68t1hi7r30hp5bea1p4ta47mo8f5.apps.googleusercontent.com', // from .plist file
+  ['https://www.googleapis.com/auth/plus.login', 'email'] // array of authorization names: eg ['https://www.googleapis.com/auth/calendar'] for requesting access to user calendar
+);
+
+import { Provider } from 'react-redux/native';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import * as LoginActions from './actions/login-actions';
+import * as OnboardingActions from './actions/onboarding-actions';
+import rootReducer from './reducers'
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+let store = createStoreWithMiddleware(combineReducers({rootReducer, routerReducer}));
+
+NativeAppEventEmitter.addListener('googleSignIn', (user) => {
+    store.dispatch(LoginActions.userLoggedIn(user));
+    store.dispatch(LoginActions.fetchUserProfile(user));
+    store.dispatch(LoginActions.saveUserProfile());
+    store.dispatch(OnboardingActions.saveOnboarding());
+});
 
 class App extends React.Component {
+
     render(){
         return (
             <View style={{flex:1}}>
@@ -28,6 +49,7 @@ class App extends React.Component {
 
                     <Route name="launch" component={Launch} initial={true} hideNavBar={true} title="Launch"/>
                     <Route name="register" component={Register} title="Register"/>
+                    <Route name="register" component={Register} title="Register"/>
                     <Route name="home" component={Home} title="Home" type="replace"/>
                     <Route name="login" component={Login} schema="modal"/>
                     <Route name="register2" component={Register} schema="withoutAnimation"/>
@@ -38,6 +60,8 @@ class App extends React.Component {
         );
     }
 }
+
+
 class Example extends React.Component {
     render() {
         return (
