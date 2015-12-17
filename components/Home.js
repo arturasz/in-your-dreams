@@ -25,7 +25,11 @@ class Home extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         console.debug('Received', responseJson)
-        this.setState({dreams: responseJson});
+        this.setState({
+          dreams: responseJson.map((obj) => {
+            obj.image = JSON.parse(obj.image);
+            return obj;
+          })});
       })
       .catch((error) => {
         console.warn(error);
@@ -65,7 +69,7 @@ class Home extends React.Component {
 
   redirectToScoreBoard() {
     console.log(this.props.routes)
-    this.props.routes.register();
+    this.props.routes.create();
   }
 
   renderFirst() {
@@ -74,7 +78,7 @@ class Home extends React.Component {
         <Text>{this.state.dreams[0].title}</Text>
         <Image
            style={styles.logo}
-           source={{uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'}}
+           source={this.state.dreams[0].image}
            />
         <Text>{this.state.dreams[0].description}</Text>
         <View style={styles.buttonContainer}>
