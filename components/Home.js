@@ -39,7 +39,7 @@ class Home extends React.Component {
 
   markAsAwesome() {
     if (this.state.dreams.length === 1) {
-      this.props.routes.register();
+      this.props.routes.create();
     }
     else {
       this.setState(function(state) {
