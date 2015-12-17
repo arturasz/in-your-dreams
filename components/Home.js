@@ -32,22 +32,19 @@ class Home extends React.Component {
   };
 
   vote(id, status) {
-    fetch('https://in-your-dreams.herokuapp.com/api/ideas', {
+    fetch('https://in-your-dreams.herokuapp.com/api/vote', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         ideaId: id,
         date: Date.now().toString(),
-        userId: 'TODO', //TODO: userId
+        userId: 'test', //TODO: userId
         vote: status
       })
     })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.debug('Received', responseJson)
+      .then(() => {
         this.redirectOrShowNext();
       })
       .catch((error) => {
@@ -93,23 +90,6 @@ class Home extends React.Component {
     this.props.routes.create();
   }
 
-  renderFirst() {
-    return (
-      <View style={styles.container}>
-        <Text>{this.state.dreams[0].title}</Text>
-        <Image
-           style={styles.logo}
-           source={this.state.dreams[0].image}
-           />
-        <Text>{this.state.dreams[0].description}</Text>
-        <View style={styles.buttonContainer}>
-          <Button onPress={() => this.markAsBoring(this.state.dreams[0].id)}>Boring</Button>
-          <Button onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>Amazing</Button>
-        </View>
-      </View>
-    );
-  }
-
   render() {
     let card = {};
 
@@ -127,38 +107,49 @@ class Home extends React.Component {
 
   };
 
+  renderFirst() {
+    return (
+      <View style={styles.container}>
+        <Image
+           style={styles.logo}
+           source={this.state.dreams[0].image}
+           />
+        <Text style={styles.title}>{this.state.dreams[0].title}</Text>
+        <Text>{this.state.dreams[0].description}</Text>
+        <View style={styles.buttonContainer}>
+          <Button onPress={() => this.markAsBoring(this.state.dreams[0].id)}>Boring</Button>
+          <Button onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>Amazing</Button>
+        </View>
+      </View>
+    );
+  }
+
 }
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: '#F5FCFF',
+  },
   logo: {
-    width: 200,
-    height: 200,
+    flex: 1,
     borderWidth: 1,
     borderColor: 'pink'
   },
-  container: {
+  title: {
     flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    fontWeight: 'bold'
   },
   buttonContainer: {
+    flex: 1,
     paddingLeft: 30,
     paddingRight: 30,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignSelf: 'stretch'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
 });
 
 module.exports = Home;
