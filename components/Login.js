@@ -1,10 +1,11 @@
 'use strict';
 
 var React = require('react-native');
-var {View, Text, StyleSheet, PropTypes} = React;
-var Button = require('react-native-button');
+var {View, Text, StyleSheet, PropTypes, Image, TouchableHighlight} = React;
+var Button = require('react-native-icon-button');
 var GoogleSignin = require('react-native-google-signin');
 var { connect } = require('react-redux/native');
+var Carousel = require('react-native-carousel');
 import { fetchOnboarding } from '../actions/onboarding-actions.js';
 
 class Login extends React.Component {
@@ -13,21 +14,50 @@ class Login extends React.Component {
   }
 
   render() {
-    let Actions = this.props.routes;
     let SignIn = () => {
       GoogleSignin.signIn();
     };
 
+    if (this.props.onboarded === true || true) {
+      return (<View style={styles.container}>
+        <Image source={require('../images/login.png')} style={styles.background}>
+          <TouchableHighlight onPress={SignIn} underlayColor={'transparent'} style={styles.touchableHighlight}>
+            <Image
+              style={styles.button}
+              source={require('../images/button-login.png')}
+              />
+          </TouchableHighlight>
+        </Image>
+      </View>);
+    }
+
     return (
-      <View style={styles.container}>
-
-
-
-        <Text>Login page: {this.props.data}</Text>
-        <Button onPress={SignIn}>Sign In</Button>
-        <Button onPress={Actions.pop}>Back</Button>
-      </View>
-    );
+      <Carousel
+        indicatorAtBottom={true}
+        indicatorPosition={50}
+        indicatorSize={30}
+        indicatorColor={'#59ad53'}
+        inactiveIndicatorColor={'#474956'}
+        loop={false}
+        animate={false}>
+        <View style={styles.container}>
+          <Image source={require('../images/onboarding-1.png')} style={styles.background} />
+        </View>
+        <View style={styles.container}>
+          <Image source={require('../images/onboarding-2.png')} style={styles.background} />
+        </View>
+        <View style={styles.container}>
+          <Image source={require('../images/onboarding-3.png')} style={styles.background}>
+            <TouchableHighlight onPress={SignIn} underlayColor={'transparent'} style={styles.touchableHighlight}>
+              <Image
+                style={styles.button}
+                source={require('../images/button-login.png')}
+                />
+            </TouchableHighlight>
+          </Image>
+        </View>
+      </Carousel>
+    )
   }
 }
 
@@ -40,22 +70,20 @@ Login.propTypes = {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#b3d395'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  background: {
+    flex: 1
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  touchableHighlight: {
+    height: 50,
+    top: 382
   },
+  button: {
+    alignSelf: 'center'
+  }
 });
-
 
 function mapStateToProps(state) {
   const {
