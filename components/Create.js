@@ -195,7 +195,7 @@ var styles = StyleSheet.create({
     padding: 10,
     color: 'white',
     flex: 1,
-    backgroundColor: '#696969',
+    backgroundColor: '#dddddd',
   },
   button: {
     borderRadius: 20,
