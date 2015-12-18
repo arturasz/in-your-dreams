@@ -9,9 +9,10 @@ var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 class Create extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: '', description: '', dream: {
-      uri: 'http://www.sarnies.net/_wp_generated/wpb7fe3174.png'
-    }};
+    this.state = { text: '',
+                   description: '',
+                   dream: null
+                 };
   }
 
   create() {
@@ -109,26 +110,38 @@ class Create extends React.Component {
         <TouchableHighlight
            style={styles.photoContainer}
            onPress={() => this.getPhotos()}>
-          <Image
-             style={styles.photo}
-             source={this.state.dream} />
+          {function(){
+            if (!this.state.dream) {
+              return <Image style={{flex: 1, position: 'absolute',resizeMode:'stretch', width:null, height: null, top:50, bottom: 50, left:50, right:50, }} source={require('../images/upload.png')}></Image>
+            }
+            return <Image
+                   style={styles.photo}
+                   source={this.state.dream} />
+          }.call(this)}
         </TouchableHighlight>
-        <TextInput
-           style={styles.title}
-           onChangeText={(text) => this.setState({text})}
-          placeholder="Title"
-          value={this.state.text}
-          />
+        <View style={styles.textPlaceholder}>
           <TextInput
-             placeholder="Description"
-             value={this.state.description}
-             multiline={true}
-             style={styles.description}
-             onChangeText={(description) => this.setState({description})}
+             style={styles.title}
+             onChangeText={(text) => this.setState({text})}
+            placeholder="Title"
+            value={this.state.text}
             />
-            <View style={styles.buttonContainer}>
-              <Button style={styles.button} onPress={() => this.create()}>Create</Button>
-            </View>
+            <TextInput
+               placeholder="Description"
+               value={this.state.description}
+               multiline={true}
+               style={styles.description}
+               onChangeText={(description) => this.setState({description})}
+              />
+        </View>
+        <View style={styles.buttonContainer}>
+          {function(){
+            if (!this.state.text || !this.state.description) {
+              return  <Button style={styles.buttonDisabled} onPress={() => this.create()}>Create</Button>
+            }
+            return  <Button style={styles.button} onPress={() => this.create()}>Create</Button>
+          }.call(this)}
+        </View>
       </View>
     );
   }
@@ -142,44 +155,54 @@ class Create extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
   },
   photoContainer: {
-    flex: 3
+    backgroundColor: '#282828',
+    flex: 6,
   },
   photo: {
     flex: 1,
     height: null,
     width: null
   },
-  logo: {
-    borderWidth: 1,
-    borderColor: 'pink',
-    flex: 5,
-    alignItems: 'stretch'
+  textPlaceholder: {
+    margin: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+    shadowRadius: 30,
+    padding: 20,
+    flex: 3
   },
   title: {
-    height: 40,
-    borderColor: 'gray',
+    fontSize: 18,
+    opacity: 0.8,
+    fontWeight: 'bold',
     flex: 1,
-    borderWidth: 1
   },
   description: {
-    borderTopWidth: 0,
-    height: 140,
-    borderColor: 'gray',
+    fontSize: 16,
+    opacity: 0.8,
+    lineHeight: 24,
     flex: 3,
-    borderWidth: 1
   },
   buttonContainer: {
+    justifyContent: 'center',
+    padding: 20,
+    flex: 1,
+  },
+  buttonDisabled: {
+    borderRadius: 20,
+    padding: 10,
+    color: 'white',
+    flex: 1,
+    backgroundColor: '#696969',
   },
   button: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    backgroundColor: 'black'
+    borderRadius: 20,
+    padding: 10,
+    color: 'white',
+    flex: 1,
+    backgroundColor: '#3591df',
   },
 });
 
