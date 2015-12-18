@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var {AppRegistry, StyleSheet,Text,View} = React;
+var {AppRegistry, StyleSheet,Text,View, Navigator} = React;
 var Launch = require('./components/Launch');
 var Register = require('./components/Register');
 var Login = require('./components/Login');
@@ -49,7 +49,7 @@ class App extends React.Component {
             <View style={{flex:1}}>
                 <Router>
                     <Schema name="modal" sceneConfig={Animations.FlatFloatFromBottom} navBar={NavBarModal}/>
-                    <Schema name="default" sceneConfig={Animations.FlatFloatFromRight} navBar={NavBar}/>
+                    <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromLeft} navBar={NavBar}/>
                     <Schema name="withoutAnimation" navBar={NavBar}/>
                     <Schema name="tab" navBar={NavBar}/>
 
