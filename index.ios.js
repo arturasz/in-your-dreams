@@ -59,7 +59,7 @@ class App extends React.Component {
                     <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
             <Route name="create" initial={true} component={Create} title="Create" type="replace"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
-                    <Route name="menu" component={Menu} hideNavBar={true} title="Launch" type="replace" />
+                    <Route name="menu" component={Menu} hideNavBar={true} />
                     <Route name="error" component={Error} schema="popup"/>
                 </Router>
             </View>

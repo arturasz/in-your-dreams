@@ -49,6 +49,25 @@ class NavBar extends React.Component {
     }
 }
 
+class NavBarMenu extends React.Component {
+  render() {
+    let Actions = this.props.routes;
+    return (
+      <NavigationBar
+        backgroundStyle={styles.navigationBackground}
+        style={styles.navigation}
+        statusBar='default'
+        titleColor='white'
+        customPrev={
+            <MenuButton
+              style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+              onPress={() => Actions.pop()}/>}
+        {...this.props}
+        />
+    )
+  }
+}
+
 
 class NavBarModal extends React.Component {
     render() {
