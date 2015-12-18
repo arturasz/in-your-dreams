@@ -33,6 +33,7 @@ NativeAppEventEmitter.addListener('googleSignIn', (user) => {
     store.dispatch(LoginActions.fetchUserProfile(user)).then(() => {
       store.dispatch(LoginActions.saveUserProfile())
     });
+    store.dispatch(OnboardingActions.saveOnboarding());
     store.dispatch({
         type: 'REPLACE',
         name: 'home'
@@ -57,12 +58,10 @@ class App extends React.Component {
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
                     <Route name="error" component={Error} schema="popup"/>
                 </Router>
-
             </View>
         );
     }
 }
-
 
 class Example extends React.Component {
     render() {
