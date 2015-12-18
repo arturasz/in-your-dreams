@@ -10,6 +10,7 @@ var {NavBar, NavBarModal} = require('./components/NavBar');
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 var Create = require('./components/Create');
+var Menu = require('./components/Menu');
 
 var { NativeAppEventEmitter } = require('react-native');
 var GoogleSignin = require('react-native-google-signin');
@@ -55,9 +56,10 @@ class App extends React.Component {
                     <Route name="launch" component={Launch} initial={true} hideNavBar={true} title="Launch"/>
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="register" component={Register} title="Register"/>
-                    <Route name="home" component={Home} title="Home" type="replace"/>
+                    <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
                     <Route name="create" component={Create} title="Create" type="replace"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
+                    <Route name="menu" component={Menu} hideNavBar={true} title="Launch" type="replace" />
                     <Route name="error" component={Error} schema="popup"/>
                 </Router>
             </View>

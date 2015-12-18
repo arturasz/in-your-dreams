@@ -4,6 +4,7 @@ var NavigationBar = require('react-native-navbar');
 var React = require('react-native');
 var {StyleSheet,View} = React;
 var {Router, Route, Animations, Schema} = require('react-native-redux-router');
+import MenuButton from './MenuButton.js';
 
 class NavBarBase extends React.Component {
     onPrev(){
@@ -31,7 +32,20 @@ class NavBarBase extends React.Component {
 }
 class NavBar extends React.Component {
     render() {
-        return <NavBarBase customNext={<View/>} {...this.props}/>
+        let Actions = this.props.routes;
+        return (
+          <NavigationBar
+            backgroundStyle={styles.navigationBackground}
+            style={styles.navigation}
+            statusBar='default'
+            titleColor='white'
+            customPrev={
+            <MenuButton
+              style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+              onPress={() => Actions.menu()}/>}
+            {...this.props}
+            />
+        )
     }
 }
 
@@ -43,6 +57,12 @@ class NavBarModal extends React.Component {
 }
 
 var styles = StyleSheet.create({
+    navigationBackground: {
+        borderBottomWidth: 0
+    },
+    navigation: {
+        backgroundColor: 'rgba(50, 50, 50, 0.1)'
+    },
     navBar: {
         backgroundColor: '#0db0d9'
     },
