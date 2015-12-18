@@ -30,9 +30,9 @@ let store = createStoreWithMiddleware(combineReducers({rootReducer, routerReduce
 
 NativeAppEventEmitter.addListener('googleSignIn', (user) => {
     store.dispatch(LoginActions.userLoggedIn(user));
-    //store.dispatch(LoginActions.fetchUserProfile(user));
-    //store.dispatch(LoginActions.saveUserProfile());
-    store.dispatch(OnboardingActions.saveOnboarding());
+    store.dispatch(LoginActions.fetchUserProfile(user)).then(() => {
+      store.dispatch(LoginActions.saveUserProfile())
+    });
     store.dispatch({
         type: 'REPLACE',
         name: 'home'

@@ -8,9 +8,7 @@ import { REQUEST_ONBOARDING, RECEIVE_ONBOARDING, REQUEST_SAVE_ONBOARDING, RECEIV
 function user(state = {}, action) {
   switch (action.type) {
     case USER_LOGGED_IN:
-      return Object.assign({}, state, {
-        user: action.user
-      });
+      return Object.assign({}, state, action.user);
     default:
       return state
   }
@@ -19,9 +17,7 @@ function user(state = {}, action) {
 function profile(state = {}, action) {
   switch (action.type) {
     case RECEIVE_USER_PROFILE:
-      return Object.assign({}, state, {
-        profile: action.profile
-      });
+      return Object.assign({}, state, action.profile);
     default:
       return state
   }

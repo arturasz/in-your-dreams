@@ -15,7 +15,6 @@ class Launch extends React.Component {
   }
 
   render() {
-    var Actions = this.props.routes;
     return (
       <View style={styles.container}>
         <Image source={require('../images/loading.png')} style={styles.background} />
@@ -42,7 +41,7 @@ var styles = StyleSheet.create({
 function mapStateToProps(state) {
   const {
     user = {}
-  } = state.rootReducer.user;
+  } = state.rootReducer;
 
   return {
     user

@@ -18,7 +18,7 @@ class Login extends React.Component {
       GoogleSignin.signIn();
     };
 
-    if (this.props.onboarded === true || true) {
+    if (this.props.onboarded === true) {
       return (<View style={styles.container}>
         <Image source={require('../images/login.png')} style={styles.background}>
           <TouchableHighlight onPress={SignIn} underlayColor={'transparent'} style={styles.touchableHighlight}>
