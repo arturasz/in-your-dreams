@@ -1,9 +1,10 @@
 'use strict';
 
 var React = require('react-native');
-var {View, Text, StyleSheet, PropTypes, Image} = React;
+var { PropTypes } = React;
 var Button = require('react-native-button');
 var { connect } = require('react-redux/native');
+import Loader from './Loader.js';
 
 class Launch extends React.Component {
 
@@ -15,11 +16,7 @@ class Launch extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Image source={require('../images/loading.png')} style={styles.background} />
-      </View>
-    );
+    return (<Loader />);
   }
 }
 
@@ -27,16 +24,6 @@ Launch.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func
 };
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  background: {
-    flex: 1
-  }
-});
 
 function mapStateToProps(state) {
   const {

@@ -7,29 +7,38 @@ var GoogleSignin = require('react-native-google-signin');
 var { connect } = require('react-redux/native');
 var Carousel = require('react-native-carousel');
 import { fetchOnboarding } from '../actions/onboarding-actions.js';
+import Loader from './Loader.js';
 
 class Login extends React.Component {
   componentDidMount() {
     this.props.fetchOnboarding();
   }
 
-  render() {
+  renderLoader() {
+    return (<Loader />);
+  }
+
+  renderLogin() {
     let SignIn = () => {
       GoogleSignin.signIn();
     };
 
-    if (this.props.onboarded === true) {
-      return (<View style={styles.container}>
-        <Image source={require('../images/login.png')} style={styles.background}>
-          <TouchableHighlight onPress={SignIn} underlayColor={'transparent'} style={styles.touchableHighlight}>
-            <Image
-              style={styles.button}
-              source={require('../images/button-login.png')}
-              />
-          </TouchableHighlight>
-        </Image>
-      </View>);
-    }
+    return (<View style={styles.container}>
+      <Image source={require('../images/login.png')} style={styles.background}>
+        <TouchableHighlight onPress={SignIn} underlayColor={'transparent'} style={styles.touchableHighlight}>
+          <Image
+            style={styles.button}
+            source={require('../images/button-login.png')}
+            />
+        </TouchableHighlight>
+      </Image>
+    </View>);
+  }
+
+  renderOnboarding() {
+    let SignIn = () => {
+      GoogleSignin.signIn();
+    };
 
     return (
       <Carousel
@@ -59,10 +68,20 @@ class Login extends React.Component {
       </Carousel>
     )
   }
+
+  render() {
+    if (this.props.isInProgress) {
+      return this.renderLoader();
+    }
+    if (this.props.onboarded) {
+      return this.renderLogin();
+    }
+    return this.renderOnboarding();
+  }
 }
 
 Login.propTypes = {
-  isInProgress: PropTypes.bool,
+  loading: PropTypes.bool,
   onboarded: PropTypes.bool,
   dispatch: PropTypes.func
 };
