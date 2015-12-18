@@ -138,7 +138,7 @@ class Home extends React.Component {
                    />
                 <View style={styles.textPlaceholder}>
                   <Text style={styles.title}>{this.state.dreams[0].title}</Text>
-                  <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+                  <Text style={styles.description}>iLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laboru</Text>
                 </View>
               </View>
               <View style={styles.buttonContainer}>
@@ -175,7 +175,7 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingTop: 30,
+    paddingTop: 20,
   },
   absoluteContainer2: {
     shadowOpacity: 0.4,
@@ -199,10 +199,10 @@ var styles = StyleSheet.create({
   },
   containerShadow: {
     flex: 45,
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
-    margin: 25,
+    margin: 20,
     marginTop: 0,
   },
   container: {
@@ -235,6 +235,7 @@ var styles = StyleSheet.create({
   description: {
     marginTop: 10,
     flex: 4,
+    lineHeight: 24,
     fontSize: 16,
     opacity: 0.68,
   },
