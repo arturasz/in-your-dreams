@@ -109,29 +109,47 @@ class Home extends React.Component {
 
   renderFirst() {
     return (
-      <View style={styles.background}>
-        <View style={styles.absoluteContainer2}></View>
-        <View style={styles.absoluteContainer1}></View>
-        <View style={styles.containerShadow}>
-          <View style={styles.container}>
-            <View style={styles.imageShadow}>
-              <Image
-                 style={styles.logo}
-                 source={this.state.dreams[0].image}
-                 />
-              <View style={styles.textPlaceholder}>
-                <Text style={styles.title}>{this.state.dreams[0].title}</Text>
-                <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+      <View style={{flex: 1}}>
+        <View style={styles.backgroundColoring}>
+          <View style={{backgroundColor: '#F5F5F5', flex: 5}}>
+          </View>
+          <View style={{backgroundColor: '#297ec6', flex: 2}}>
+          </View>
+          <View style={{backgroundColor: '#3899ec', flex: 3}}>
+          </View>
+        </View>
+        <View style={styles.background}>
+          {function(){
+            if (this.state.dreams.length > 2) {
+              return <View style={styles.absoluteContainer2}></View>
+            }
+          }.call(this)}
+          {function(){
+            if (this.state.dreams.length > 1) {
+              return <View style={styles.absoluteContainer1}></View>
+            }
+          }.call(this)}
+          <View style={styles.containerShadow}>
+            <View style={styles.container}>
+              <View style={styles.imageShadow}>
+                <Image
+                   style={styles.logo}
+                   source={this.state.dreams[0].image}
+                   />
+                <View style={styles.textPlaceholder}>
+                  <Text style={styles.title}>{this.state.dreams[0].title}</Text>
+                  <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button style={styles.button} onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
-                <Image source={require('../images/x.png')} style={styles.buttonImage} />
-              </Button>
-              <View style={ { width: 2, marginTop: 2, marginBottom: 2,  backgroundColor: '#000000' } }><Text>||</Text></View>
-              <Button style={styles.button} onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
-                <Image source={require('../images/like.png')} style={styles.buttonImage} />
-              </Button>
+              <View style={styles.buttonContainer}>
+                <Button style={styles.button} onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
+                  <Image source={require('../images/x.png')} style={styles.buttonImage} />
+                </Button>
+                <View style={ {opacity: 0.1, width: 2, marginTop: 2, marginBottom: 2,  backgroundColor: '#000000' } }><Text>||</Text></View>
+                <Button style={styles.button} onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
+                  <Image source={require('../images/like.png')} style={styles.buttonImage} />
+                </Button>
+              </View>
             </View>
           </View>
         </View>
@@ -146,26 +164,34 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
     flex: 5,
   },
+  backgroundColoring: {
+    position: 'absolute',
+    top:0,
+    bottom:0,
+    right: 0,
+    left: 0,
+  },
   background: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'blue',
     paddingTop: 30,
   },
   absoluteContainer2: {
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
+    opacity: 0.6,
     flex: 1,
     backgroundColor: 'white',
     marginLeft: 60,
     marginRight: 60,
   },
   absoluteContainer1: {
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
+    opacity: 0.8,
     flex: 1,
     backgroundColor: 'white',
     marginLeft: 40,
@@ -176,13 +202,13 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 30,
     shadowColor: '#000000',
+    margin: 25,
+    marginTop: 0,
   },
   container: {
     flex: 1,
     alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
-    margin: 25,
-    marginTop: 0,
     overflow: 'hidden'
   },
   textPlaceholder: {
@@ -192,24 +218,25 @@ var styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignSelf: 'stretch',
     alignItems: 'flex-start',
-    paddingLeft: 25,
-    paddingTop: 25,
+    paddingLeft: 20,
+    paddingTop: 20,
     flex: 2
   },
   logo: {
-    flex: 3,
+    flex: 4,
     borderColor: 'pink'
   },
   title: {
     flex: 1,
-    fontSize: 16,
-    opacity: 0.88,
+    fontSize: 18,
+    opacity: 0.78,
     fontWeight: 'bold'
   },
   description: {
-    fontSize: 14,
-    opacity: 0.88,
+    marginTop: 10,
     flex: 4,
+    fontSize: 16,
+    opacity: 0.68,
   },
   buttonContainer: {
     shadowOpacity: 0.1,
