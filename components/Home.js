@@ -146,13 +146,13 @@ class Home extends React.Component {
 
               <View style={styles.buttonContainer}>
                 <TouchableHighlight
-                   style="button"
+                   style={styles.button}
                    onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
                   <Image source={require('../images/x.png')} style={styles.buttonImage} />
                 </TouchableHighlight>
                 <View style={ {opacity: 0.1, width: 2, marginTop: 2, marginBottom: 2,  backgroundColor: '#000000' } }><Text>||</Text></View>
                 <TouchableHighlight
-                   style="button"
+                   style={styles.button}
                    onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
                   <Image source={require('../images/like.png')} style={styles.buttonImage} />
                 </TouchableHighlight>
@@ -252,14 +252,14 @@ var styles = StyleSheet.create({
     shadowRadius: 15,
     backgroundColor: '#ffffff',
     flex: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
     flexDirection: 'row',
     alignSelf: 'stretch',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'space-around'
   },
   button: {
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
   },
   buttonImage: {
