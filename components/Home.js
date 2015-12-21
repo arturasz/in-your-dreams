@@ -228,6 +228,7 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingLeft: 20,
     paddingTop: 20,
+    paddingRight: 20,
     flex: 2
   },
   logo: {

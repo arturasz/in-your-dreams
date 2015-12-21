@@ -126,6 +126,7 @@ class Create extends React.Component {
              onChangeText={(text) => this.setState({text})}
             placeholder="Title"
             value={this.state.text}
+            maxLength={20}
             />
             <TextInput
                placeholder="Description"
@@ -133,6 +134,7 @@ class Create extends React.Component {
                multiline={true}
                style={styles.description}
                onChangeText={(description) => this.setState({description})}
+              maxLength={100}
               />
         </View>
         <View style={styles.buttonContainer}>
