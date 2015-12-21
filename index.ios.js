@@ -6,7 +6,7 @@ var Launch = require('./components/Launch');
 var Register = require('./components/Register');
 var Login = require('./components/Login');
 var {Router, routerReducer, Route, Container, Animations, Schema} = require('react-native-redux-router');
-var {NavBar, NavBarModal} = require('./components/NavBar');
+var {NavBar, NavBarSecondary, NavBarModal} = require('./components/NavBar');
 var Error = require('./components/Error');
 var Home = require('./components/Home');
 var Create = require('./components/Create');
@@ -50,6 +50,7 @@ class App extends React.Component {
                 <Router>
                     <Schema name="modal" sceneConfig={Animations.FlatFloatFromBottom} navBar={NavBarModal}/>
                     <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromLeft} navBar={NavBar}/>
+                    <Schema name="secondary" sceneConfig={Navigator.SceneConfigs.FloatFromRight} navBar={NavBarSecondary}/>
                     <Schema name="withoutAnimation" navBar={NavBar}/>
                     <Schema name="tab" navBar={NavBar}/>
 
@@ -57,7 +58,7 @@ class App extends React.Component {
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
-                    <Route name="create" component={Create} title="Create" type="replace"/>
+                    <Route name="create" component={Create} title="Create" schema="secondary"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
                     <Route name="menu" component={Menu} hideNavBar={true} />
                     <Route name="error" component={Error} schema="popup"/>
