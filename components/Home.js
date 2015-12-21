@@ -232,7 +232,7 @@ class Home extends React.Component {
                   </View>
                   <View style={styles.textPlaceholder}>
                     <Text style={styles.title}>{this.state.dreams[0].title}</Text>
-                    <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+                    <Text style={styles.description} numberOfLines={2}>{this.state.dreams[0].description}</Text>
                   </View>
                 </View>
 
