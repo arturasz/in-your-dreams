@@ -11,6 +11,8 @@ var Error = require('./components/Error');
 var Home = require('./components/Home');
 var Create = require('./components/Create');
 var Menu = require('./components/Menu');
+var MyDreams = require('./components/MyDreams');
+var LeaderBoard = require('./components/LeaderBoard');
 
 var { NativeAppEventEmitter } = require('react-native');
 var GoogleSignin = require('react-native-google-signin');
@@ -42,6 +44,10 @@ NativeAppEventEmitter.addListener('googleSignIn', (user) => {
     });
 });
 
+NativeAppEventEmitter.addListener('googleSignInError', (error) => {
+  console.log('googleSignInError', error);
+});
+
 class App extends React.Component {
 
     render(){
@@ -54,9 +60,9 @@ class App extends React.Component {
                     <Schema name="withoutAnimation" navBar={NavBar}/>
                     <Schema name="tab" navBar={NavBar}/>
 
-                    <Route name="launch" initial={true} component={Launch} hideNavBar={true} title="Launch"/>
-                    <Route name="register" component={Register} title="Register"/>
-                    <Route name="register" component={Register} title="Register"/>
+                    <Route name="launch"  component={Launch} hideNavBar={true} title="Launch"/>
+                    <Route name="myDreams" component={MyDreams} title="My Dreams" schema="secondary"/>
+                    <Route name="leaderBoard" component={LeaderBoard} initial={true} title="Top Rated Dreams" schema="secondary"/>
                     <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
                     <Route name="create" component={Create} title="Create" schema="secondary"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />

@@ -20,7 +20,10 @@ class Menu extends React.Component {
             <TouchableHighlight onPress={Actions.create} style={styles.navigationLink}>
               <Text style={styles.navigationLinkText}>Add dream</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={Actions.error} style={styles.navigationLink}>
+            <TouchableHighlight onPress={Actions.myDreams} style={styles.navigationLink}>
+              <Text style={styles.navigationLinkText}>My dreams</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={Actions.leaderBoard} style={styles.navigationLink}>
               <Text style={styles.navigationLinkText}>Leader Board</Text>
             </TouchableHighlight>
             <TouchableHighlight onPress={Actions.home} style={styles.navigationLink}>

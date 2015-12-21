@@ -40,7 +40,7 @@ class NavBar extends React.Component {
       <NavigationBar
         backgroundStyle={styles.navigationBackground}
         style={styles.navigation}
-        statusBar='default'
+        statusBar='lightContent'
         titleColor='white'
         customPrev={
           <MenuButton
@@ -65,7 +65,7 @@ class NavBarCreate extends React.Component {
       <NavigationBar
         backgroundStyle={styles.navigationBackground}
         style={styles.navigation}
-        statusBar='default'
+        statusBar='lightContent'
         titleColor='white'
         customPrev={
           <MenuButton
@@ -85,7 +85,7 @@ class NavBarSecondary extends React.Component {
       <NavigationBar
         backgroundStyle={styles.navigationBackground}
         style={styles.navigation}
-        statusBar='default'
+        statusBar='lightContent'
         titleColor='white'
         customPrev={
           <BackButton
