@@ -44,12 +44,12 @@ class NavBar extends React.Component {
         titleColor='white'
         customPrev={
           <MenuButton
-            style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+            style={{ marginLeft: 10, marginRight: 10, marginTop: 15 }}
             onPress={() => Actions.menu()}/>
         }
         customNext={
           <CreateDreamButton
-            style={{ marginLeft: 10, marginRight: 10, marginTop: 30 }}
+            style={{ marginLeft: 10, marginRight: 10, marginTop: 10 }}
             onPress={() => Actions.create()}/>
         }
         {...this.props}
@@ -69,7 +69,7 @@ class NavBarCreate extends React.Component {
         titleColor='white'
         customPrev={
           <MenuButton
-            style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+            style={{ marginLeft: 10, marginRight: 10, marginTop: 15 }}
             onPress={() => Actions.menu()}/>
         }
         {...this.props}
@@ -89,7 +89,7 @@ class NavBarSecondary extends React.Component {
         titleColor='white'
         customPrev={
           <BackButton
-            style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+            style={{ marginLeft: 10, marginRight: 10, marginTop: 15 }}
             onPress={() => Actions.pop()}/>
         }
         {...this.props}
@@ -109,7 +109,7 @@ class NavBarMenu extends React.Component {
         titleColor='white'
         customPrev={
             <MenuButton
-              style={{ marginLeft: 10, marginRight: 10, marginTop: 35 }}
+              style={{ marginLeft: 10, marginRight: 10, marginTop: 15 }}
               onPress={() => Actions.pop()}/>}
         {...this.props}
       />
@@ -126,10 +126,13 @@ class NavBarModal extends React.Component {
 
 var styles = StyleSheet.create({
   navigationBackground: {
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    backgroundColor: '#0f4e82'
   },
   navigation: {
-    backgroundColor: 'rgba(50, 50, 50, 0.1)'
+    marginTop: 20,
+    height: 44,
+    backgroundColor: '#114977'
   },
   navBar: {
     backgroundColor: '#0db0d9'
