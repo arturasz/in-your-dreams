@@ -50,8 +50,8 @@ class Create extends React.Component {
       cancelButtonTitle: 'Cancel',
       takePhotoButtonTitle: 'Take Photo...', // specify null or empty string to remove this button
       chooseFromLibraryButtonTitle: 'Choose from Library...', // specify null or empty string to remove this button
-      maxWidth: 300,
-      maxHeight: 300,
+      maxWidth: 600,
+      maxHeight: 600,
       quality: 0.2,
       allowsEditing: false, // Built in iOS functionality to resize/reposition the image
       noData: false, // Disables the base64 `data` field from being generated (greatly improves performance on large photos)

@@ -112,13 +112,13 @@ class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={styles.backgroundColoring}>
-          <View style={{ backgroundColor: '#114977', flex: 7 }}>
+          <View style={{ backgroundColor: '#114977', flex: 10 }}>
             <Image
                style={{flex: 1, width: null, height: null}}
                source={require('../images/background-home.png')}
                />
           </View>
-          <View style={{backgroundColor: '#93c66d', flex: 3}}>
+          <View style={{backgroundColor: '#93c66d', flex: 4}}>
           </View>
         </View>
         <View style={styles.background}>
@@ -153,7 +153,8 @@ class Home extends React.Component {
                    onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
                   <Image source={require('../images/x.png')} style={styles.buttonImage} />
                 </TouchableHighlight>
-                <View style={ {opacity: 0.1, width: 2, marginTop: 2, marginBottom: 2,  backgroundColor: '#000000' } }><Text>||</Text></View>
+                <View style={ styles.separator }><Text>||</Text></View>
+                
                 <TouchableHighlight
                    style={styles.button}
                    onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
@@ -187,6 +188,15 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingTop: 20,
+  },
+  separator: {
+    opacity: 0.1,
+    width: 2,
+    marginTop: 2,
+    marginBottom: 2,
+    backgroundColor: '#000000',
+    flex: 0,
+    alignSelf: 'center'
   },
   absoluteContainer2: {
     shadowOpacity: 0.4,
