@@ -3,6 +3,7 @@
 var React = require('react-native');
 var {TextInput, TouchableHighlight, View, Text, StyleSheet, Image, CameraRoll} = React;
 var Button = require('react-native-button');
+var { connect } = require('react-redux/native');
 var {Actions} = require('react-native-redux-router');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
 
@@ -27,7 +28,7 @@ class Create extends React.Component {
           image: JSON.stringify(this.state.dream),
           description: this.state.description,
           title: this.state.text,
-          user: 'Hardcoded'
+          user: this.props.user.email
         })
       })
         .then((response) => response.json())
@@ -206,4 +207,14 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = Create;
+function mapStateToProps(state) {
+  const {
+    user = {}
+  } = state.rootReducer;
+
+  return {
+    user
+  };
+}
+
+export default connect(mapStateToProps)(Create);

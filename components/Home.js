@@ -1,9 +1,10 @@
 'use strict';
 
 var React = require('react-native');
-var {View, Text, StyleSheet, Image} = React;
+var {View, TouchableHighlight, Text, StyleSheet, Image} = React;
 var Button = require('react-native-button');
 var {Actions} = require('react-native-redux-router');
+var { connect } = require('react-redux/native');
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://in-your-dreams.herokuapp.com/api/ideas', {
+    fetch('https://in-your-dreams.herokuapp.com/api/ideas/' +  this.props.user.email, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ class Home extends React.Component {
       body: JSON.stringify({
         ideaId: id,
         date: Date.now().toString(),
-        userId: 'test', //TODO: userId
+        userId: this.props.user.email,
         vote: status
       })
     })
@@ -129,6 +130,7 @@ class Home extends React.Component {
               return <View style={styles.absoluteContainer1}></View>
             }
           }.call(this)}
+
           <View style={styles.containerShadow}>
             <View style={styles.container}>
               <View style={styles.imageShadow}>
@@ -141,15 +143,21 @@ class Home extends React.Component {
                   <Text style={styles.description}>{this.state.dreams[0].description}</Text>
                 </View>
               </View>
+
               <View style={styles.buttonContainer}>
-                <Button style={styles.button} onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
+                <TouchableHighlight
+                   style="button"
+                   onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
                   <Image source={require('../images/x.png')} style={styles.buttonImage} />
-                </Button>
+                </TouchableHighlight>
                 <View style={ {opacity: 0.1, width: 2, marginTop: 2, marginBottom: 2,  backgroundColor: '#000000' } }><Text>||</Text></View>
-                <Button style={styles.button} onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
+                <TouchableHighlight
+                   style="button"
+                   onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
                   <Image source={require('../images/like.png')} style={styles.buttonImage} />
-                </Button>
+                </TouchableHighlight>
               </View>
+
             </View>
           </View>
         </View>
@@ -247,10 +255,25 @@ var styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignSelf: 'stretch',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  button: {
+    flex: 1,
+  },
+  buttonImage: {
   }
 });
 
-module.exports = Home;
+function mapStateToProps(state) {
+  const {
+    user = {}
+  } = state.rootReducer;
+
+  return {
+    user
+  };
+}
+
+export default connect(mapStateToProps)(Home);

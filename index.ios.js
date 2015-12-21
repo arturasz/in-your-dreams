@@ -53,11 +53,11 @@ class App extends React.Component {
                     <Schema name="withoutAnimation" navBar={NavBar}/>
                     <Schema name="tab" navBar={NavBar}/>
 
-                    <Route name="launch" component={Launch} hideNavBar={true} title="Launch"/>
+                    <Route name="launch" initial={true} component={Launch} hideNavBar={true} title="Launch"/>
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="register" component={Register} title="Register"/>
                     <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
-            <Route name="create" initial={true} component={Create} title="Create" type="replace"/>
+                    <Route name="create" component={Create} title="Create" type="replace"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
                     <Route name="menu" component={Menu} hideNavBar={true} />
                     <Route name="error" component={Error} schema="popup"/>
