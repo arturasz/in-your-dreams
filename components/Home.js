@@ -112,7 +112,7 @@ class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={styles.backgroundColoring}>
-          <View style={{ flex: 7 }}>
+          <View style={{ backgroundColor: '#114977', flex: 7 }}>
             <Image
                style={{flex: 1, width: null, height: null}}
                source={require('../images/background-home.png')}
@@ -140,6 +140,7 @@ class Home extends React.Component {
                    style={styles.logo}
                    source={this.state.dreams[0].image}
                    />
+
                 <View style={styles.textPlaceholder}>
                   <Text style={styles.title}>{this.state.dreams[0].title}</Text>
                   <Text style={styles.description}>{this.state.dreams[0].description}</Text>
@@ -172,7 +173,7 @@ class Home extends React.Component {
 var styles = StyleSheet.create({
   imageShadow: {
     overflow: 'hidden',
-    flex: 5,
+    flex: 20,
   },
   backgroundColoring: {
     position: 'absolute',
@@ -209,9 +210,9 @@ var styles = StyleSheet.create({
   },
   containerShadow: {
     flex: 45,
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.2,
     shadowRadius: 30,
-    shadowColor: '#000000',
+    shadowColor: '#ffffff',
     margin: 20,
     marginTop: 0,
   },
@@ -234,7 +235,7 @@ var styles = StyleSheet.create({
     flex: 2
   },
   logo: {
-    flex: 4,
+    flex: 6,
     borderColor: 'pink'
   },
   title: {
@@ -254,7 +255,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 15,
     backgroundColor: '#ffffff',
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'stretch',
