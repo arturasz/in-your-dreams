@@ -1,14 +1,76 @@
 'use strict';
 
 var React = require('react-native');
-var {View, TouchableHighlight, Text, StyleSheet, Image} = React;
+var {View, TouchableHighlight, Text, StyleSheet, Image,
+     AppRegistry,
+     ScrollView,
+     ListView,
+     Animated
+    } = React;
 var Button = require('react-native-button');
 var {Actions} = require('react-native-redux-router');
 var { connect } = require('react-redux/native');
+var Dimensions = require('Dimensions');
 
+var {
+  width,
+  height
+
+}= Dimensions.get('window');
+
+var GREY = 0;
+var GREEN = 1;
+var RED = 2;
+
+var values = [1,2,3,4];
+var AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 class Home extends React.Component {
+  _animateScroll(e) {
+    var threshold = width / 5;
+    var x = e.nativeEvent.contentOffset.x;
+    var target = null;
+    x = x ;
+    if (x > -50 && x < 50 && this._target != GREY) {
+      target = GREY;
+    } else if (x < -50  && this._target != GREEN) {
+      target = RED;
+    } else if (x > 50 && this._target != RED) {
+      target = GREEN;
+    }
+    if (target !== null) {
+      this._target = target;
+      this._targetIndex = 0;
+      Animated.timing(this.state.colors[0], {
+        toValue: target,
+        duration: 0,
+      }).start();
+    }
+  }
+  takeAction(id) {
+    this.setState({
+      action: true
+    });
+    var action = this.getAction();
+    if (action === RED) {
+      this.markAsBoring(id);
+    } else if (action == GREEN) {
+      this.markAsAwesome(id);
+    }
+  }
+  getAction() {
+    if (this.state.action) {
+      return this._target
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
+    this.target = null;
+    this.state = {
+      values: values,
+      colors: values.map( () => new Animated.Value(GREY) )
+    }
   }
 
   componentDidMount() {
@@ -46,11 +108,11 @@ class Home extends React.Component {
       })
     })
       .then(() => {
-        this.redirectOrShowNext();
       })
       .catch((error) => {
         console.warn(error);
       });
+    this.redirectOrShowNext();
   }
   markAsBoring(id) {
     this.vote(id, 'downVote')
@@ -94,12 +156,10 @@ class Home extends React.Component {
   render() {
     let card = {};
 
-    if (!this.state) {
+    if (!this.state.dreams) {
       return this.renderLoading();
     }
 
-    console.log(this.state.dreams);
-    console.log(this.state.dreams.length);
     if (!this.state.dreams.length) {
       return this.redirectToScoreBoard();
     }
@@ -109,6 +169,18 @@ class Home extends React.Component {
   };
 
   renderFirst() {
+    var bgColor = this.state.colors[0].interpolate({
+      inputRange: [
+        GREY,
+        GREEN,
+        RED
+      ],
+      outputRange: [
+        'rgb(255, 255, 255)',
+        'rgba(214, 255, 214, 1)',
+        'rgba(255, 214, 214, 1)',
+      ],
+    });
     return (
       <View style={{flex: 1}}>
         <View style={styles.backgroundColoring}>
@@ -133,36 +205,46 @@ class Home extends React.Component {
             }
           }.call(this)}
 
+
           <View style={styles.containerShadow}>
-            <View style={styles.container}>
-              <View style={styles.imageShadow}>
-                <Image
-                   style={styles.logo}
-                   source={this.state.dreams[0].image}
-                   />
+            <AnimatedScrollView
+               horizontal={true}
+               directionalLockEnabled={true}
+               style={[{ flex: 1 }, { backgroundColor: bgColor }]}
+               onScroll={this._animateScroll.bind(this)}
+               scrollEventThrottle={16}
+               onMomentumScrollBegin={this.takeAction.bind(this, this.state.dreams[0].id)}
+               >
+              <View style={styles.container}>
+                <View style={styles.imageShadow}>
+                  <Image
+                     style={styles.logo}
+                     source={this.state.dreams[0].image}
+                     />
 
-                <View style={styles.textPlaceholder}>
-                  <Text style={styles.title}>{this.state.dreams[0].title}</Text>
-                  <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+                  <View style={styles.textPlaceholder}>
+                    <Text style={styles.title}>{this.state.dreams[0].title}</Text>
+                    <Text style={styles.description}>{this.state.dreams[0].description}</Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.buttonContainer}>
-                <TouchableHighlight
-                   style={styles.button}
-                   onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
-                  <Image source={require('../images/x.png')} style={styles.buttonImage} />
-                </TouchableHighlight>
-                <View style={ styles.separator }><Text>||</Text></View>
-                
-                <TouchableHighlight
-                   style={styles.button}
-                   onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
-                  <Image source={require('../images/like.png')} style={styles.buttonImage} />
-                </TouchableHighlight>
-              </View>
+                <View style={styles.buttonContainer}>
+                  <TouchableHighlight
+                     style={styles.button}
+                     onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
+                    <Image source={require('../images/x.png')} style={styles.buttonImage} />
+                  </TouchableHighlight>
+                  <View style={ styles.separator }><Text>||</Text></View>
+                  
+                  <TouchableHighlight
+                     style={styles.button}
+                     onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
+                    <Image source={require('../images/like.png')} style={styles.buttonImage} />
+                  </TouchableHighlight>
+                </View>
 
-            </View>
+              </View>
+            </AnimatedScrollView>
           </View>
         </View>
       </View>
@@ -227,16 +309,17 @@ var styles = StyleSheet.create({
     marginTop: 0,
   },
   container: {
+    height: 464, //we need to specify height because ScrollView doesnt work otherwise...
+    width: 280, //we need to specify width because otherwise all layout breaks apart
+    alignSelf: 'stretch',
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
     overflow: 'hidden'
   },
   textPlaceholder: {
     shadowOpacity: 0.3,
     shadowRadius: 30,
     shadowColor: '#000000',
-    backgroundColor: '#ffffff',
     alignSelf: 'stretch',
     alignItems: 'flex-start',
     paddingLeft: 20,
@@ -264,7 +347,6 @@ var styles = StyleSheet.create({
   buttonContainer: {
     shadowOpacity: 0.1,
     shadowRadius: 15,
-    backgroundColor: '#ffffff',
     flex: 3,
     flexDirection: 'row',
     alignSelf: 'stretch',
@@ -289,5 +371,7 @@ function mapStateToProps(state) {
     user
   };
 }
+
+var AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
 export default connect(mapStateToProps)(Home);
