@@ -7,6 +7,7 @@ import { USER_LOGGED_IN, RECEIVE_USER_PROFILE } from './actions/login-actions.js
 import { REQUEST_ONBOARDING, RECEIVE_ONBOARDING, REQUEST_SAVE_ONBOARDING, RECEIVE_SAVE_ONBOARDING } from './actions/onboarding-actions.js'
 import { REQUEST_MY_DREAMS, RECEIVE_MY_DREAMS } from './actions/my-dreams-actions'
 import { REQUEST_LEADER_BOARD, RECEIVE_LEADER_BOARD } from './actions/leader-board-actions'
+import { REQUEST_ITS_A_MATCH, RECEIVE_ITS_A_MATCH, REQUEST_HIDE_DREAM, RECEIVE_HIDE_DREAM } from './actions/its-a-match-actions'
 
 function user(state = {}, action) {
   switch (action.type) {
@@ -53,7 +54,6 @@ function onboarding(state = {}, action) {
 }
 
 function myDreams(state = {}, action) {
-  console.log(state, action);
   switch (action.type) {
     case REQUEST_MY_DREAMS:
       return Object.assign({}, state, {
@@ -91,12 +91,31 @@ function leaderBoard(state = {}, action) {
   }
 }
 
+function itsAMatch(state = {}, action) {
+  switch (action.type) {
+    case REQUEST_ITS_A_MATCH:
+      return Object.assign({}, state, {
+        loading: true,
+        dreamList: []
+      });
+    case RECEIVE_ITS_A_MATCH:
+      return Object.assign({}, state, {
+        loading: false,
+        dreamList: action.result
+      });
+
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   user,
   profile,
   onboarding,
   myDreams,
-  leaderBoard
+  leaderBoard,
+  itsAMatch
 });
 
 export default rootReducer
