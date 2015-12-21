@@ -222,7 +222,7 @@ var styles = StyleSheet.create({
     flex: 45,
     shadowOpacity: 0.2,
     shadowRadius: 30,
-    shadowColor: '#ffffff',
+    shadowColor: '#000000',
     margin: 20,
     marginTop: 0,
   },
