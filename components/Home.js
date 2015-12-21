@@ -190,58 +190,52 @@ class Home extends React.Component {
                source={require('../images/background-home.png')}
                />
           </View>
-          <View style={{backgroundColor: '#93c66d', flex: 4}}>
+          <View style={styles.buttonContainer}>
+            <TouchableHighlight
+               style={styles.button}
+               onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
+              <Image source={require('../images/x.png')} style={styles.buttonImage} />
+            </TouchableHighlight>
+            <View style={ styles.separator }><Text>||</Text></View>
+            
+            <TouchableHighlight
+               style={styles.button}
+               onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
+              <Image source={require('../images/like.png')} style={styles.buttonImage} />
+            </TouchableHighlight>
           </View>
         </View>
         <View style={styles.background}>
-          {function(){
-            if (this.state.dreams.length > 2) {
-              return <View style={styles.absoluteContainer2}></View>
-            }
-          }.call(this)}
-          {function(){
-            if (this.state.dreams.length > 1) {
-              return <View style={styles.absoluteContainer1}></View>
-            }
-          }.call(this)}
-
+          <View style={styles.absoluteContainer2}></View>
+          <View style={styles.absoluteContainer1}></View>
 
           <View style={styles.containerShadow}>
             <AnimatedScrollView
                horizontal={true}
+               showsVerticalScrollIndicator={false}
+               showsHorizontalScrollIndicator={false}
                directionalLockEnabled={true}
-               style={[{ flex: 1 }, { backgroundColor: bgColor }]}
+               style={[styles.animatedScrollView, { backgroundColor: bgColor }]}
                onScroll={this._animateScroll.bind(this)}
                scrollEventThrottle={16}
                onMomentumScrollBegin={this.takeAction.bind(this, this.state.dreams[0].id)}
                >
               <View style={styles.container}>
                 <View style={styles.imageShadow}>
-                  <Image
+                  <View
                      style={styles.logo}
-                     source={this.state.dreams[0].image}
-                     />
-
+                     >
+                    <Image
+                       style={styles.logo}
+                       source={this.state.dreams[0].image}
+                       />
+                  </View>
                   <View style={styles.textPlaceholder}>
                     <Text style={styles.title}>{this.state.dreams[0].title}</Text>
                     <Text style={styles.description}>{this.state.dreams[0].description}</Text>
                   </View>
                 </View>
 
-                <View style={styles.buttonContainer}>
-                  <TouchableHighlight
-                     style={styles.button}
-                     onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
-                    <Image source={require('../images/x.png')} style={styles.buttonImage} />
-                  </TouchableHighlight>
-                  <View style={ styles.separator }><Text>||</Text></View>
-                  
-                  <TouchableHighlight
-                     style={styles.button}
-                     onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
-                    <Image source={require('../images/like.png')} style={styles.buttonImage} />
-                  </TouchableHighlight>
-                </View>
 
               </View>
             </AnimatedScrollView>
@@ -270,15 +264,15 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingTop: 20,
+    marginBottom:90,
   },
   separator: {
     opacity: 0.1,
     width: 2,
     marginTop: 2,
-    marginBottom: 2,
+    marginBottom: 8,
     backgroundColor: '#000000',
     flex: 0,
-    alignSelf: 'center'
   },
   absoluteContainer2: {
     shadowOpacity: 0.4,
@@ -300,20 +294,20 @@ var styles = StyleSheet.create({
     marginLeft: 34,
     marginRight: 34
   },
+  animatedScrollView: {
+  },
   containerShadow: {
     flex: 45,
     shadowOpacity: 0.2,
     shadowRadius: 30,
     shadowColor: '#000000',
-    margin: 20,
-    marginTop: 0,
+    marginLeft: 20,
+    marginRight: 20,
   },
   container: {
-    height: 464, //we need to specify height because ScrollView doesnt work otherwise...
+    height: 380, //we need to specify height because ScrollView doesnt work otherwise...
     width: 280, //we need to specify width because otherwise all layout breaks apart
-    alignSelf: 'stretch',
     flex: 1,
-    alignItems: 'stretch',
     overflow: 'hidden'
   },
   textPlaceholder: {
@@ -328,7 +322,7 @@ var styles = StyleSheet.create({
     flex: 2
   },
   logo: {
-    flex: 7,
+    flex: 6,
     borderColor: 'pink'
   },
   title: {
@@ -345,13 +339,15 @@ var styles = StyleSheet.create({
     opacity: 0.68,
   },
   buttonContainer: {
+    backgroundColor: 'white', 
     shadowOpacity: 0.1,
     shadowRadius: 15,
-    flex: 3,
+    flex: 4,
     flexDirection: 'row',
     alignSelf: 'stretch',
-    alignItems: 'stretch',
-    justifyContent: 'space-around'
+    alignItems: 'flex-end',
+    justifyContent: 'space-around',
+    paddingBottom: 20,
   },
   button: {
     alignItems: 'center',
