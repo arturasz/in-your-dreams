@@ -112,11 +112,13 @@ class Home extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={styles.backgroundColoring}>
-          <View style={{backgroundColor: '#F5F5F5', flex: 5}}>
+          <View style={{ flex: 7 }}>
+            <Image
+               style={{flex: 1, width: null, height: null}}
+               source={require('../images/background-home.png')}
+               />
           </View>
-          <View style={{backgroundColor: '#297ec6', flex: 2}}>
-          </View>
-          <View style={{backgroundColor: '#3899ec', flex: 3}}>
+          <View style={{backgroundColor: '#93c66d', flex: 3}}>
           </View>
         </View>
         <View style={styles.background}>
@@ -189,7 +191,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
-    opacity: 0.6,
+    opacity: 0.4,
     flex: 1,
     backgroundColor: 'white',
     marginLeft: 60,
@@ -199,7 +201,7 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
-    opacity: 0.8,
+    opacity: 0.6,
     flex: 1,
     backgroundColor: 'white',
     marginLeft: 40,

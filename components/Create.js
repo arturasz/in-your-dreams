@@ -120,13 +120,14 @@ class Create extends React.Component {
                    source={this.state.dream} />
           }.call(this)}
         </TouchableHighlight>
+
         <View style={styles.textPlaceholder}>
           <TextInput
              style={styles.title}
              onChangeText={(text) => this.setState({text})}
             placeholder="Title"
             value={this.state.text}
-            maxLength={20}
+            maxLength={25}
             />
             <TextInput
                placeholder="Description"
@@ -137,6 +138,7 @@ class Create extends React.Component {
               maxLength={100}
               />
         </View>
+
         <View style={styles.buttonContainer}>
           {function(){
             if (!this.state.text || !this.state.description) {
@@ -170,11 +172,11 @@ var styles = StyleSheet.create({
   },
   textPlaceholder: {
     margin: 10,
+    padding: 20,
+    flex: 3,
     shadowColor: 'black',
     shadowOpacity: 0.3,
     shadowRadius: 30,
-    padding: 20,
-    flex: 3
   },
   title: {
     fontSize: 18,
