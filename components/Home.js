@@ -174,7 +174,7 @@ class Home extends React.Component {
 var styles = StyleSheet.create({
   imageShadow: {
     overflow: 'hidden',
-    flex: 20,
+    flex: 21,
   },
   backgroundColoring: {
     position: 'absolute',
@@ -202,21 +202,21 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
-    opacity: 0.4,
+    opacity: 0.3,
     flex: 1,
     backgroundColor: 'white',
-    marginLeft: 60,
-    marginRight: 60,
+    marginLeft: 50,
+    marginRight: 50,
   },
   absoluteContainer1: {
     shadowOpacity: 0.4,
     shadowRadius: 30,
     shadowColor: '#000000',
-    opacity: 0.6,
+    opacity: 0.5,
     flex: 1,
     backgroundColor: 'white',
-    marginLeft: 40,
-    marginRight: 40
+    marginLeft: 34,
+    marginRight: 34
   },
   containerShadow: {
     flex: 45,
@@ -240,25 +240,25 @@ var styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'flex-start',
     paddingLeft: 20,
-    paddingTop: 20,
+    paddingTop: 15,
     paddingRight: 20,
     flex: 2
   },
   logo: {
-    flex: 6,
+    flex: 7,
     borderColor: 'pink'
   },
   title: {
-    flex: 1,
-    fontSize: 18,
+    flex: 3,
+    overflow: 'visible',
+    fontSize: 16,
     opacity: 0.78,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   description: {
-    marginTop: 10,
-    flex: 4,
-    lineHeight: 24,
-    fontSize: 16,
+    flex: 8,
+    lineHeight: 21,
+    fontSize: 14,
     opacity: 0.68,
   },
   buttonContainer: {
