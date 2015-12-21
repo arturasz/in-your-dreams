@@ -142,8 +142,8 @@ class Home extends React.Component {
 
   renderLoading() {
     return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
+      <View style={{flex: 1}}>
+        <Image source={require('../images/loading.png')} style={{flex: 1, width: null, height: null}}/>
       </View>
     );
   }
