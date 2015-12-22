@@ -8,11 +8,12 @@ var { connect } = require('react-redux/native');
 
 class NoDreams extends React.Component {
   render() {
+    let Actions = this.props.routes;
     return (
       <View style={styles.container}>
         <View style={styles.phText}>
-          <Text style={ [styles.text, {marginTop: 80}]}>You are done!</Text>
-          <Text style={styles.text}> Add your Own dream, or check Top Rated Dreams</Text>
+          <Text style={ [styles.text, {marginTop: 50}]}>Congratulations!</Text>
+          <Text style={styles.text}>You are done!</Text>
         </View>
         <View style={styles.phImage}>
           <Image
@@ -20,8 +21,8 @@ class NoDreams extends React.Component {
              />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableHighlight style={styles.button} onPress={() => this.create()}><Text style={styles.buttonText}>Add Your Dream</Text></TouchableHighlight>
-          <TouchableHighlight style={[styles.button, {backgroundColor: '#cdcdcd' }]} onPress={() => this.create()}><Text style={styles.buttonText}>Go to Top Rated Dreams</Text></TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={Actions.create}><Text style={styles.buttonText}>Add Your Dream</Text></TouchableHighlight>
+          <TouchableHighlight style={[styles.button, {backgroundColor: '#cdcdcd' }]} onPress={Actions.leaderBoard}><Text style={styles.buttonText}>Go to Top Rated Dreams</Text></TouchableHighlight>
         </View>
       </View>
     )
