@@ -9,6 +9,7 @@ import { REQUEST_ONBOARDING, RECEIVE_ONBOARDING, REQUEST_SAVE_ONBOARDING, RECEIV
 import { REQUEST_MY_DREAMS, RECEIVE_MY_DREAMS } from './actions/my-dreams-actions'
 import { REQUEST_LEADER_BOARD, RECEIVE_LEADER_BOARD } from './actions/leader-board-actions'
 import { REQUEST_ITS_A_MATCH, RECEIVE_ITS_A_MATCH, REQUEST_HIDE_DREAM, RECEIVE_HIDE_DREAM } from './actions/its-a-match-actions'
+import { REQUEST_IDEAS, RECEIVE_IDEAS } from './actions/ideas-actions.js'
 
 function user(state = {}, action) {
   switch (action.type) {
@@ -51,6 +52,24 @@ function onboarding(state = {}, action) {
 
     default:
       return state
+  }
+}
+
+function ideas(state = {}, action) {
+  switch (action.type) {
+  case REQUEST_IDEAS:
+    return Object.assign({}, state, {
+      loading: true,
+      ideas: []
+    });
+  case RECEIVE_IDEAS:
+    return Object.assign({}, state, {
+      loading: false,
+      ideas: action.result
+    });
+
+  default:
+    return state
   }
 }
 
@@ -122,7 +141,8 @@ const rootReducer = combineReducers({
   onboarding,
   myDreams,
   leaderBoard,
-  itsAMatch
+  itsAMatch,
+  ideas
 });
 
 export default rootReducer

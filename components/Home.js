@@ -10,6 +10,7 @@ var {View, TouchableHighlight, Text, StyleSheet, Image,
 var Button = require('react-native-button');
 var {Actions} = require('react-native-redux-router');
 var { connect } = require('react-redux/native');
+var { fetchIdeas } = require('../actions/ideas-actions.js');
 var Dimensions = require('Dimensions');
 
 var {
@@ -74,23 +75,11 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://in-your-dreams.herokuapp.com/api/ideas/' +  this.props.user.email, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dreams: responseJson.map((obj) => {
-            obj.image = JSON.parse(obj.image);
-            return obj;
-          })});
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    this.props.fetchIdeas().then(() => {
+      if(!this.props.ideas.length) {
+        this.props.routes.noDreams();
+      }
+    });
   };
 
   vote(id, status) {
@@ -109,34 +98,27 @@ class Home extends React.Component {
       .then(() => {
       })
       .catch((error) => {
-        console.warn(error);
       });
     this.redirectOrShowNext();
   }
   markAsBoring(id) {
     this.vote(id, 'downVote')
-    console.log('Boring')
   }
 
   redirectOrShowNext() {
-    if (this.state.dreams.length === 1) {
+    if (this.props.ideas.length === 1) {
       this.props.routes.noDreams();
     }
     else {
       this.setState(function(state) {
-        console.log(this.state.dreams)
-        state.dreams.shift();
-        console.log(this.state.dreams)
-        console.log(this.state.dreams.length)
+        props.ideas.shift();
         return state;
       });
     }
   }
 
   markAsAwesome(id) {
-    console.log(id);
     this.vote(id, 'upVote')
-    console.log('Awesome')
   }
 
   renderLoading() {
@@ -148,19 +130,14 @@ class Home extends React.Component {
   }
 
   redirectToScoreBoard() {
-    console.log(this.props.routes)
     this.props.routes.create();
   }
 
   render() {
     let card = {};
 
-    if (!this.state.dreams) {
+    if (!this.props.ideas.length) {
       return this.renderLoading();
-    }
-
-    if (!this.state.dreams.length) {
-      return this.redirectToScoreBoard();
     }
 
     return this.renderFirst();
@@ -192,14 +169,14 @@ class Home extends React.Component {
           <View style={styles.buttonContainer}>
             <TouchableHighlight
                style={styles.button}
-               onPress={() => this.markAsBoring(this.state.dreams[0].id)}>
+               onPress={() => this.markAsBoring(this.props.ideas[0].id)}>
               <Image source={require('../images/x.png')} style={styles.buttonImage} />
             </TouchableHighlight>
             <View style={ styles.separator }><Text>||</Text></View>
 
             <TouchableHighlight
                style={styles.button}
-               onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
+               onPress={() => this.markAsAwesome(this.props.ideas[0].id)}>
               <Image source={require('../images/like.png')} style={styles.buttonImage} />
             </TouchableHighlight>
           </View>
@@ -217,7 +194,7 @@ class Home extends React.Component {
                style={[styles.animatedScrollView, { backgroundColor: bgColor }]}
                onScroll={this._animateScroll.bind(this)}
                scrollEventThrottle={16}
-               onMomentumScrollBegin={this.takeAction.bind(this, this.state.dreams[0].id)}
+               onMomentumScrollBegin={this.takeAction.bind(this, this.props.ideas[0].id)}
                >
               <View style={styles.container}>
                 <View style={styles.imageShadow}>
@@ -226,12 +203,12 @@ class Home extends React.Component {
                      >
                     <Image
                        style={styles.logo}
-                       source={this.state.dreams[0].image}
+                       source={this.props.ideas[0].image}
                        />
                   </View>
                   <View style={styles.textPlaceholder}>
-                    <Text style={styles.title}>{this.state.dreams[0].title}</Text>
-                    <Text style={styles.description} numberOfLines={2}>{this.state.dreams[0].description}</Text>
+                    <Text style={styles.title}>{this.props.ideas[0].title}</Text>
+                    <Text style={styles.description} numberOfLines={2}>{this.props.ideas[0].description}</Text>
                   </View>
                 </View>
 
@@ -359,14 +336,21 @@ var styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   const {
-    user = {}
+    user = {},
   } = state.rootReducer;
 
+  const {
+    ideas =[],
+    loading= false
+  } = state.rootReducer.ideas;
+
   return {
-    user
+    user,
+    ideas,
+    loading
   };
 }
 
 var AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, {fetchIdeas})(Home);
