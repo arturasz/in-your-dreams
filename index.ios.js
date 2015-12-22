@@ -12,6 +12,7 @@ var Home = require('./components/Home');
 var Create = require('./components/Create');
 var Menu = require('./components/Menu');
 var MyDreams = require('./components/MyDreams');
+var NoDreams = require('./components/NoDreams');
 var LeaderBoard = require('./components/LeaderBoard');
 
 var { NativeAppEventEmitter } = require('react-native');
@@ -60,9 +61,10 @@ class App extends React.Component {
                     <Schema name="withoutAnimation" navBar={NavBar}/>
                     <Schema name="tab" navBar={NavBar}/>
 
-                    <Route name="launch"  component={Launch} hideNavBar={true} title="Launch"/>
+            <Route name="launch"  component={Launch}  hideNavBar={true} title="Launch"/>
                     <Route name="myDreams" component={MyDreams} title="My Dreams" schema="secondary"/>
-                    <Route name="leaderBoard" component={LeaderBoard} initial={true} title="Top Rated Dreams" schema="secondary"/>
+            <Route name="noDreams" component={NoDreams} initial={true} title="In Your Dreams" schema="secondary"/>
+                    <Route name="leaderBoard" component={LeaderBoard} title="Top Rated Dreams" schema="secondary"/>
                     <Route name="home" component={Home} title="Wix Dreams" type="replace"/>
                     <Route name="create" component={Create} title="Create" schema="secondary"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />

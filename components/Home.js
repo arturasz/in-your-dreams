@@ -121,7 +121,7 @@ class Home extends React.Component {
 
   redirectOrShowNext() {
     if (this.state.dreams.length === 1) {
-      this.props.routes.create();
+      this.props.routes.noDreams();
     }
     else {
       this.setState(function(state) {
