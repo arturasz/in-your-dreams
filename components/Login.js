@@ -11,7 +11,7 @@ import Loader from './Loader.js';
 
 class Login extends React.Component {
   componentDidMount() {
-    this.props.fetchOnboarding();
+    //this.props.fetchOnboarding();
   }
 
   renderLoader() {
@@ -73,9 +73,9 @@ class Login extends React.Component {
     if (this.props.isInProgress) {
       return this.renderLoader();
     }
-    if (this.props.onboarded) {
-      return this.renderLogin();
-    }
+    //if (this.props.onboarded) {
+    //  return this.renderLogin();
+    //}
     return this.renderOnboarding();
   }
 }

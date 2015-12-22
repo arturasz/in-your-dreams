@@ -17,16 +17,16 @@ class Menu extends React.Component {
           <MenuCloseButton onPress={Actions.pop} style={styles.menuCloseButton}/>
 
           <View style={styles.navigationContainer}>
-            <TouchableHighlight onPress={Actions.create} style={styles.navigationLink}>
+            <TouchableHighlight onPress={Actions.create} style={styles.navigationLink} underlayColor={'transparent'}>
               <Text style={styles.navigationLinkText}>Add dream</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={Actions.myDreams} style={styles.navigationLink}>
+            <TouchableHighlight onPress={Actions.myDreams} style={styles.navigationLink} underlayColor={'transparent'}>
               <Text style={styles.navigationLinkText}>My dreams</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={Actions.leaderBoard} style={styles.navigationLink}>
+            <TouchableHighlight onPress={Actions.leaderBoard} style={styles.navigationLink} underlayColor={'transparent'}>
               <Text style={styles.navigationLinkText}>Leader Board</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={Actions.home} style={styles.navigationLink}>
+            <TouchableHighlight onPress={Actions.home} style={styles.navigationLink} underlayColor={'transparent'}>
               <Text style={styles.navigationLinkText}>Wix Dreams</Text>
             </TouchableHighlight>
           </View>
