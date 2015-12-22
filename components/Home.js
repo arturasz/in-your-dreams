@@ -155,6 +155,7 @@ class Home extends React.Component {
           <View style={styles.buttonContainer}>
             <TouchableHighlight
                style={styles.button}
+               underlayColor='transparent'
                onPress={() => this.markAsBoring(this.props.ideas[0].id)}>
               <Image source={require('../images/x.png')} style={styles.buttonImage} />
             </TouchableHighlight>
@@ -162,6 +163,7 @@ class Home extends React.Component {
             
             <TouchableHighlight
                style={styles.button}
+               underlayColor='transparent'
                onPress={() => this.markAsAwesome(this.props.ideas[0].id)}>
               <Image source={require('../images/like.png')} style={styles.buttonImage} />
             </TouchableHighlight>
