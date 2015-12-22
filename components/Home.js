@@ -10,7 +10,7 @@ var {View, TouchableHighlight, Text, StyleSheet, Image,
 var Button = require('react-native-button');
 var {Actions} = require('react-native-redux-router');
 var { connect } = require('react-redux/native');
-var { fetchIdeas } = require('../actions/ideas-actions.js');
+var { fetchIdeas, vote } = require('../actions/ideas-actions.js');
 var Dimensions = require('Dimensions');
 
 var {
@@ -83,24 +83,10 @@ class Home extends React.Component {
   };
 
   vote(id, status) {
-    fetch('https://in-your-dreams.herokuapp.com/api/vote', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ideaId: id,
-        date: Date.now().toString(),
-        userId: this.props.user.email,
-        vote: status
-      })
-    })
-      .then(() => {
-      })
-      .catch((error) => {
-      });
+    this.props.vote(id, status)
     this.redirectOrShowNext();
   }
+
   markAsBoring(id) {
     this.vote(id, 'downVote')
   }
@@ -111,7 +97,7 @@ class Home extends React.Component {
     }
     else {
       this.setState(function(state) {
-        props.ideas.shift();
+        this.props.ideas.shift();
         return state;
       });
     }
@@ -173,7 +159,7 @@ class Home extends React.Component {
               <Image source={require('../images/x.png')} style={styles.buttonImage} />
             </TouchableHighlight>
             <View style={ styles.separator }><Text>||</Text></View>
-
+            
             <TouchableHighlight
                style={styles.button}
                onPress={() => this.markAsAwesome(this.props.ideas[0].id)}>
@@ -315,7 +301,7 @@ var styles = StyleSheet.create({
     opacity: 0.68,
   },
   buttonContainer: {
-    backgroundColor: 'white',
+    backgroundColor: 'white', 
     shadowOpacity: 0.1,
     shadowRadius: 15,
     flex: 4,
@@ -353,4 +339,4 @@ function mapStateToProps(state) {
 
 var AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
 
-export default connect(mapStateToProps, {fetchIdeas})(Home);
+export default connect(mapStateToProps, {fetchIdeas, vote})(Home);

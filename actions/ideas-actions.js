@@ -20,7 +20,7 @@ export function fetchIdeas() {
   return (dispatch, getState) => {
     dispatch(requestIdeas());
     let user = getState().rootReducer.user;
-    return fetch(`https://in-your-dreams.herokuapp.com/api/ideas/${user.email}`, {
+    return fetch(`https://in-your-dreams.herokuapp.com/api/ideas/s${user.email}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -35,6 +35,28 @@ export function fetchIdeas() {
       })
       .catch((error) => {
         console.warn(error);
+      });
+  }
+}
+
+export function vote(id, status) {
+  return (dispatch, getState) => {
+    let user = getState().rootReducer.user;
+    return fetch('https://in-your-dreams.herokuapp.com/api/vote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ideaId: id,
+        date: Date.now().toString(),
+        userId: user.email,
+        vote: status
+      })
+    })
+      .then(() => {
+      })
+      .catch((error) => {
       });
   }
 }
