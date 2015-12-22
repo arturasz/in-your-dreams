@@ -112,7 +112,7 @@ class Create extends React.Component {
            onPress={() => this.getPhotos()}>
           {function(){
             if (!this.state.dream) {
-              return <Image style={{flex: 1, position: 'absolute',resizeMode:'stretch', width:null, height: null, top:50, bottom: 50, left:50, right:50, }} source={require('../images/upload.png')}></Image>
+              return <Image style={{flex: 1, position: 'absolute',resizeMode:'stretch', width:171, height: 138, top:50, bottom: 74, left:74, right:74, }} source={require('../images/upload.png')}></Image>
             }
             return <Image
                    style={styles.photo}
@@ -122,6 +122,7 @@ class Create extends React.Component {
 
         <View style={styles.textPlaceholder}>
           <TextInput
+      placeholderTextColor="black"
              style={styles.title}
              onChangeText={(text) => this.setState({text})}
             placeholder="Title"
@@ -141,9 +142,9 @@ class Create extends React.Component {
         <View style={styles.buttonContainer}>
           {function(){
             if (!this.state.text || !this.state.description) {
-              return  <Button style={styles.buttonDisabled} onPress={() => this.create()}>Create</Button>
+              return  <TouchableHighlight style={styles.buttonDisabled} onPress={() => this.create()}><Text style={styles.buttonText}>Create</Text></TouchableHighlight>
             }
-            return  <Button style={styles.button} onPress={() => this.create()}>Create</Button>
+            return  <TouchableHighlight style={styles.button} onPress={() => this.create()}><Text style={styles.buttonText}>Create</Text></TouchableHighlight>
           }.call(this)}
         </View>
       </View>
@@ -161,7 +162,9 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   photoContainer: {
-    backgroundColor: '#282828',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f2f2f2',
     flex: 6,
   },
   photo: {
@@ -192,22 +195,28 @@ var styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'center',
     padding: 20,
+    marginBottom: 10,
     flex: 1,
   },
   buttonDisabled: {
-    borderRadius: 20,
-    padding: 10,
-    color: 'white',
+    borderRadius: 25,
+    padding: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
     backgroundColor: '#dddddd',
   },
   button: {
-    borderRadius: 20,
-    padding: 10,
-    color: 'white',
+    borderRadius: 25,
+    padding: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
     backgroundColor: '#3591df',
   },
+  buttonText: {
+    color: 'white'
+  }
 });
 
 function mapStateToProps(state) {
