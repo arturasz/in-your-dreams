@@ -165,7 +165,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f2f2f2',
-    flex: 6,
+    flex: 7,
   },
   photo: {
     flex: 1,
@@ -183,6 +183,7 @@ var styles = StyleSheet.create({
   title: {
     fontSize: 18,
     opacity: 0.8,
+    marginBottom: 20,
     fontWeight: 'bold',
     flex: 1,
   },
