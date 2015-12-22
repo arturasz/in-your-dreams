@@ -20,7 +20,7 @@ export function fetchIdeas() {
   return (dispatch, getState) => {
     dispatch(requestIdeas());
     let user = getState().rootReducer.user;
-    return fetch(`https://in-your-dreams.herokuapp.com/api/ideas/s${user.email}`, {
+    return fetch(`https://in-your-dreams.herokuapp.com/api/ideas/${user.email}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
