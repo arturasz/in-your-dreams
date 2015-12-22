@@ -83,8 +83,16 @@ class Home extends React.Component {
   };
 
   vote(id, status) {
-    this.props.vote(id, status)
+    this.props.vote(id, status);
     this.redirectOrShowNext();
+    this.inc = this.inc || 0;
+    if (this.inc % 3 == 0) {
+      this.props.dispatch({
+        type: 'PUSH',
+        name: 'itsAMatch'
+      });
+    }
+    this.inc++;
   }
 
   markAsBoring(id) {
@@ -160,7 +168,7 @@ class Home extends React.Component {
               <Image source={require('../images/x.png')} style={styles.buttonImage} />
             </TouchableHighlight>
             <View style={ styles.separator }><Text>||</Text></View>
-            
+
             <TouchableHighlight
                style={styles.button}
                underlayColor='transparent'
@@ -303,7 +311,7 @@ var styles = StyleSheet.create({
     opacity: 0.68,
   },
   buttonContainer: {
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     shadowOpacity: 0.1,
     shadowRadius: 15,
     flex: 4,

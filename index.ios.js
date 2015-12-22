@@ -14,6 +14,7 @@ var Menu = require('./components/Menu');
 var MyDreams = require('./components/MyDreams');
 var NoDreams = require('./components/NoDreams');
 var LeaderBoard = require('./components/LeaderBoard');
+var ItsAMatch = require('./components/ItsAMatch');
 
 var { NativeAppEventEmitter } = require('react-native');
 var GoogleSignin = require('react-native-google-signin');
@@ -69,6 +70,7 @@ class App extends React.Component {
                     <Route name="create" component={Create} title="Create" schema="secondary"/>
                     <Route name="login" component={Login} hideNavBar={true} title="Launch" type="replace" />
                     <Route name="menu" component={Menu} hideNavBar={true} />
+                    <Route name="itsAMatch" component={ItsAMatch} hideNavBar={true} />
                     <Route name="error" component={Error} schema="popup"/>
                 </Router>
             </View>
