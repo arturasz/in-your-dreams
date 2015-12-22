@@ -9,7 +9,7 @@ const {
 export default class MenuButton extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={this.props.onPress} underlayColor={'transparent'}>
         <Image
           source={require('../images/button-menu.png')}
           style={[{ width: 15, height: 10 }, this.props.style]}/>

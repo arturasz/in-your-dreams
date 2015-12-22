@@ -9,7 +9,7 @@ const {
 export default class MenuCloseButton extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPress} style={this.props.style}>
+      <TouchableOpacity onPress={this.props.onPress} style={this.props.style} underlayColor={'transparent'}>
         <Image
           source={require('../images/button-menu-close.png')}
           style={{ width: 12, height: 12 }}/>

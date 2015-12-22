@@ -17,7 +17,7 @@ export default class LogoutButton extends Component {
     };
 
     return (
-      <TouchableOpacity onPress={onPress} style={this.props.style}>
+      <TouchableOpacity onPress={onPress} style={this.props.style} underlayColor={'transparent'}>
         <Image source={require('../images/button-logout.png')} />
       </TouchableOpacity>
     );
