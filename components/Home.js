@@ -82,7 +82,6 @@ class Home extends React.Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.debug('Received', responseJson)
         this.setState({
           dreams: responseJson.map((obj) => {
             obj.image = JSON.parse(obj.image);
@@ -197,7 +196,7 @@ class Home extends React.Component {
               <Image source={require('../images/x.png')} style={styles.buttonImage} />
             </TouchableHighlight>
             <View style={ styles.separator }><Text>||</Text></View>
-            
+
             <TouchableHighlight
                style={styles.button}
                onPress={() => this.markAsAwesome(this.state.dreams[0].id)}>
@@ -339,7 +338,7 @@ var styles = StyleSheet.create({
     opacity: 0.68,
   },
   buttonContainer: {
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     shadowOpacity: 0.1,
     shadowRadius: 15,
     flex: 4,

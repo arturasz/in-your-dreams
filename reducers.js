@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var {View, Text, StyleSheet, PropTypes, Image, ListView, ActivityIndicatorIOS} = React;
+import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { USER_LOGGED_IN, RECEIVE_USER_PROFILE } from './actions/login-actions.js'
 import { REQUEST_ONBOARDING, RECEIVE_ONBOARDING, REQUEST_SAVE_ONBOARDING, RECEIVE_SAVE_ONBOARDING } from './actions/onboarding-actions.js'
@@ -63,7 +64,15 @@ function myDreams(state = {}, action) {
     case RECEIVE_MY_DREAMS:
       return Object.assign({}, state, {
         loading: false,
-        dreamList: action.result
+        dreamList: action.result,
+        statistics: {
+          upVotes: _(action.result).reduce((total, dream) => {
+            return total + dream.upVotes;
+          }, 0),
+          downVotes: _(action.result).reduce((total, dream) => {
+            return total + dream.downVotes;
+          }, 0)
+        }
       });
 
     default:
@@ -79,11 +88,9 @@ function leaderBoard(state = {}, action) {
         dreamList: []
       });
     case RECEIVE_LEADER_BOARD:
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       return Object.assign({}, state, {
         loading: false,
-        dreamList: action.result,
-        dataSource: ds.cloneWithRows(action.result)
+        dreamList: action.result
       });
 
     default:

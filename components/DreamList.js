@@ -6,7 +6,9 @@ import Loader from './Loader.js';
 
 class DreamList extends React.Component {
   componentWillMount() {
-    this.props.fetchDreamList();
+    if (this.props.fetchDreamList) {
+      this.props.fetchDreamList();
+    }
   }
 
   renderLoader() {
@@ -49,7 +51,7 @@ class DreamList extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <ListView
+        <ListView style={{flex: 1}}
           dataSource={dataSource}
           renderRow={this.renderDream}
         />
@@ -63,10 +65,9 @@ class DreamList extends React.Component {
 }
 
 DreamList.propTypes = {
-  fetchDreamList: PropTypes.func.isRequired,
+  fetchDreamList: PropTypes.func,
   loading: PropTypes.bool.isRequired,
   dreamList: PropTypes.array.isRequired,
-  dataSource: PropTypes.object.isRequired,
   dispatch: PropTypes.func
 };
 
@@ -140,7 +141,7 @@ var styles = StyleSheet.create({
   },
   dreamSeparator: {
     height: 1,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#f2f2f2',
   }
 });
 

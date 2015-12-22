@@ -127,7 +127,7 @@ class NavBarModal extends React.Component {
 var styles = StyleSheet.create({
   navigationBackground: {
     borderBottomWidth: 0,
-    backgroundColor: '#0f4e82'
+    backgroundColor: '#0f3d63'
   },
   navigation: {
     marginTop: 20,

@@ -33,7 +33,6 @@ class Create extends React.Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
-          console.debug('Received', responseJson)
           this.props.routes.home();
         })
         .catch((error) => {
@@ -61,7 +60,7 @@ class Create extends React.Component {
       }
     };
 
-    /** 
+    /**
      * The first arg will be the options object for customization, the second is
      * your callback which sends bool: didCancel, object: response.
      *
