@@ -13,7 +13,7 @@ class NoDreams extends React.Component {
       <View style={styles.container}>
         <View style={styles.phText}>
           <Text style={ [styles.text, {marginTop: 50}]}>Congratulations!</Text>
-          <Text style={styles.text}>You are done!</Text>
+          <Text style={styles.text}>Your dreams might come true!</Text>
         </View>
         <View style={styles.phImage}>
           <Image
